@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.service.IUserService;
+
+import com.example.service.impl.UserServiceImpl;
 
 /**
  * @Author:0xOO
@@ -13,26 +14,25 @@ import com.example.service.IUserService;
  */
 
 @RestController
-@RequestMapping("/testBoot")
-public class UserController {
+@RequestMapping("/unionPayController")
+public class UnionPayController {
 	
 	
 	
 	
 
     @Autowired
-    private IUserService userService;
-    
-    
-    
-    
-    
+    private UserServiceImpl userService;
 
+    
+    
+    
     @RequestMapping("getUser/{id}")
     public String GetUser(@PathVariable int id){
-    	
         return userService.Sel(id).toString();
     }
+    
+    
     
     
     
