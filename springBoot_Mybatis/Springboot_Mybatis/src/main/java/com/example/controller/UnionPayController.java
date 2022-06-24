@@ -1,11 +1,15 @@
 package com.example.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.service.impl.UserServiceImpl;
+import com.alibaba.fastjson.JSON;
+import com.example.service.IUnionPayService;
 
 /**
  * @Author:0xOO
@@ -22,15 +26,28 @@ public class UnionPayController {
 	
 
     @Autowired
-    private UserServiceImpl userService;
+    private IUnionPayService unionPayService;
 
     
     
     
-    @RequestMapping("getUser/{id}")
-    public String GetUser(@PathVariable int id){
-        return userService.Sel(id).toString();
+    
+    
+    
+    
+    @RequestMapping(value="/getUnionPayCode",method=RequestMethod.POST)
+    public String getUnionPayCode(@RequestBody Map<String,String> map){
+    	
+    	System.out.println("getUnionPayCode() 入参 map="+JSON.toJSONString(map));
+    	
+    	Map<String, String> targetMap = unionPayService.getUnionPayCode(map);
+    	System.out.println("targetMap="+JSON.toJSONString(targetMap));
+    	
+    	String targetStr = JSON.toJSONString(targetMap);
+    	
+    	return targetStr;
     }
+    
     
     
     
