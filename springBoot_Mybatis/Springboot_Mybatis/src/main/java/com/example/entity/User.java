@@ -1,14 +1,33 @@
 package com.example.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @Author:0xOO
  * @Date: 2018/9/26 0026
  * @Time: 14:39
  */
+
+
+
 public class User {
+	
+	
+	
+	
     private Integer id;
+    
+    
+    
+    @JsonIgnore
     private String userName;
+    
+    
     private String passWord;
+    
+    @JsonIgnore
     private String realName;
 
     public Integer getId() {
