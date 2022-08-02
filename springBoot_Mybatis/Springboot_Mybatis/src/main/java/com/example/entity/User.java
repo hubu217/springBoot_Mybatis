@@ -16,7 +16,7 @@ public class User {
 	
 	
 	
-	
+	@JSONField(serialize = false)
     private Integer id;
     
     
@@ -24,7 +24,7 @@ public class User {
     @JsonIgnore
     private String userName;
     
-    
+    @JSONField(serialize = false)
     private String passWord;
     
     @JsonIgnore

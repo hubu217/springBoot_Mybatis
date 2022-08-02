@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.example.entity.User;
@@ -90,16 +91,20 @@ public class UserController {
     	user.setRealName("realName");
     	user.setUserName("userName");
     	
-		/*SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
-		filter.getExcludes().add("passWord");
-		
-		
-		System.out.println(JSON.toJSONString(user,filter, SerializerFeature.WriteMapNullValue));*/
+		/*	SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
+			filter.getExcludes().add("passWord");
+			filter.getExcludes().add("id");
+			String fastJsonStr = JSONObject.toJSONString(user ,  filter);*/
     	
-    	String jsonStr = new ObjectMapper().writeValueAsString(user);
+    	String jackSonStr = new ObjectMapper().writeValueAsString(user);
+    	System.out.println("jackSonStr [userName-realName]="+jackSonStr);
     	
     	
-    	System.out.println(JSON.toJSON(jsonStr));
+    	
+    	
+    	
+    	String fastJsonStr = JSON.toJSONString(user);
+		System.out.println("fastJsonStr [passWord-id]="+fastJsonStr );
     	
     			
     	
