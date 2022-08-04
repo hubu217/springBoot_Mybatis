@@ -1,7 +1,10 @@
 package com.example.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
+import com.example.entity.Tuser;
 import com.example.entity.User;
 import com.example.service.IUserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -108,10 +112,26 @@ public class UserController {
 		System.out.println("fastJsonStr [passWord-id]="+fastJsonStr );
 		
 		
-		log.info(fastJsonStr);
+		JSONObject jsonObj = JSON.parseObject(fastJsonStr, JSONObject.class);
+		
+		System.out.println("拼接前 jsonObj="+JSON.toJSONString(jsonObj));
+		
+		Tuser  tuser = new Tuser();
+		tuser.setCreatedatetime(new Date());
+		tuser.setName("tuser");
+		
+		Set<String> troles = new HashSet<String>();
+		troles.add("set1");
+		troles.add("set2");
+		troles.add("set3");
+		tuser.setTroles(troles);
+		
+		jsonObj.put("tname", tuser.getName());
+		jsonObj.put("tcreattime", tuser.getCreatedatetime());
+		jsonObj.put("troles", tuser.getTroles());
     	
     			
-    	
+		System.out.println("拼接后 jsonObj="+JSON.toJSONString(jsonObj));
 	}
     
     
