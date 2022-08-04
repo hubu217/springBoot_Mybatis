@@ -18,13 +18,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Author:0xOO
  * @Date: 2018/9/26 0026
  * @Time: 14:42
  */
-
+@Slf4j
 @RestController
 @RequestMapping("/testBoot")
 public class UserController {
@@ -105,6 +106,9 @@ public class UserController {
     	
     	String fastJsonStr = JSON.toJSONString(user);
 		System.out.println("fastJsonStr [passWord-id]="+fastJsonStr );
+		
+		
+		log.info(fastJsonStr);
     	
     			
     	
