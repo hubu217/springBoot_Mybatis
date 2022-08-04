@@ -96,6 +96,20 @@
 			<version>1.2.76</version>
 		</dependency>
 		
+		<!-- 导入 POI 包 -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.14</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.14</version>
+		</dependency>
+			
+		
 		
 		
 	</dependencies>
