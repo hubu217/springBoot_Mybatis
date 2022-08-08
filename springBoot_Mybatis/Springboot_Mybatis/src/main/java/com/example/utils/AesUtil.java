@@ -1,8 +1,6 @@
 package com.example.utils;
 
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import ch.qos.logback.classic.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 加密解密工具类
@@ -22,11 +20,19 @@ import ch.qos.logback.classic.Logger;
  */
 @Slf4j
 public class AesUtil {
+	
+	
+	
+	
+	
 
     private static final String KEY_AES = "AES";
 
     private static final int KEY_LENGTH = 16;
 
+    
+    
+    
     /**
      * 加密
      */
@@ -101,7 +107,7 @@ public class AesUtil {
     
     
     
-	/* public static void main(String[] args) {
+	 public static void main(String[] args) {
 	 	
 	 	JSONObject jsonObj = new JSONObject();
 	 	jsonObj.put("name", "张三");
@@ -119,7 +125,7 @@ public class AesUtil {
 	     log.info("加密后 = {}", encrypt);
 	     String decrypt = AesUtil.decrypt(encrypt, "aWXoyC4UNb111111");
 	     log.info("解密后 = {}", decrypt);
-	 }*/
+	 }
 
 }
 

@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -88,27 +89,40 @@ public class UserController {
     }
     
     
+    
+    
+    @RequestMapping("getUser2")
+    public String getUser2(@RequestHeader("userId") int userId){
+    	
+    	
+    	
+        return JSON.toJSONString("getUser2");
+    }
+    
+    
+    
+    
     public static void main(String[] args) throws JsonProcessingException {
 		
-    	User user = new User();
-    	user.setId(1);
-    	user.setPassWord("password");
-    	user.setRealName("realName");
-    	user.setUserName("userName");
+		/*User user = new User();
+		user.setId(1);
+		user.setPassWord("password");
+		user.setRealName("realName");
+		user.setUserName("userName");*/
     	
 		/*	SimplePropertyPreFilter filter = new SimplePropertyPreFilter();
 			filter.getExcludes().add("passWord");
 			filter.getExcludes().add("id");
 			String fastJsonStr = JSONObject.toJSONString(user ,  filter);*/
     	
-    	String jackSonStr = new ObjectMapper().writeValueAsString(user);
-    	System.out.println("jackSonStr [userName-realName]="+jackSonStr);
-    	
-    	
-    	
-    	
-    	
-    	String fastJsonStr = JSON.toJSONString(user);
+		/*String jackSonStr = new ObjectMapper().writeValueAsString(user);
+		System.out.println("jackSonStr [userName-realName]="+jackSonStr);
+		
+		
+		
+		
+		
+		String fastJsonStr = JSON.toJSONString(user);
 		System.out.println("fastJsonStr [passWord-id]="+fastJsonStr );
 		
 		
@@ -129,9 +143,34 @@ public class UserController {
 		jsonObj.put("tname", tuser.getName());
 		jsonObj.put("tcreattime", tuser.getCreatedatetime());
 		jsonObj.put("troles", tuser.getTroles());
-    	
-    			
-		System.out.println("拼接后 jsonObj="+JSON.toJSONString(jsonObj));
+		System.out.println("拼接后 jsonObj="+JSON.toJSONString(jsonObj));*/
+		
+		
+		
+		JSONObject jsonObj2 = new JSONObject();
+		jsonObj2.put("key1", "val1");
+		jsonObj2.put("key2", "val2");
+		jsonObj2.put("key3", "val3");
+		jsonObj2.put("key4", "val4");
+		
+		
+		System.out.println("==== jsonObj2="+JSON.toJSONString(jsonObj2));
+		
+		
+		
+		
+		jsonObj2.remove("key2");
+		jsonObj2.remove("key4");
+		System.out.println("==== jsonObj2 移除后="+JSON.toJSONString(jsonObj2));
+
+		
+		
+		
+		
+		
+		
+		
+		
 	}
     
     
