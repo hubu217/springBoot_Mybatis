@@ -121,9 +121,9 @@ public class AesUtil {
 	    // String content = "http://s3zz.ad.weibo.com/license/1231xxqrq3rr44q.jpg#13121121231231";
 	     String content = JSON.toJSONString(jsonObj);
 	     log.info("原内容 = {}", content);
-	     String encrypt = AesUtil.encrypt(content, "aWXoyC4UNb111111");
+	     String encrypt = AesUtil.encrypt(content, "aWXoyC4UNb1frkey");
 	     log.info("加密后 = {}", encrypt);
-	     String decrypt = AesUtil.decrypt(encrypt, "aWXoyC4UNb111111");
+	     String decrypt = AesUtil.decrypt(encrypt, "aWXoyC4UNb1frkey");
 	     log.info("解密后 = {}", decrypt);
 	 }
 
