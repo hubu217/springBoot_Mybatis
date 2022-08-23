@@ -10,16 +10,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author fy
  * @ClassName: ExcelUtils
  * @Description: 解析excel表
+ * @Description: 上传/下载 文件
  * @date 2022/4/8 15:25
  */
 public class ExcelUtils {
@@ -187,42 +190,66 @@ public class ExcelUtils {
     
     
     
+    public static void  doExcel() throws IOException, InvalidFormatException{
+    	
+    	 File file = new File("D:/哈尔滨统计-test.xlsx");
+         FileInputStream fis = new FileInputStream(file);
+
+         //将输出的流对象引入到解析excel文件的对象
+          //HSSFWorkbook wb = new HSSFWorkbook(fis);
+         XSSFWorkbook wb = new XSSFWorkbook(fis);
+//         Workbook wb = WorkbookFactory.create(fis);
+//         Workbook wb = ExcelUtils.getWorkBookFromMultipartFile();
+
+         for (int i = 0; i < wb.getNumberOfSheets(); i++) {
+// 		             HSSFSheet sheet = wb.getSheetAt(i);
+ 		           XSSFSheet sheet = wb.getSheetAt(i);
+ 		//            Sheet sheet = wb.getSheetAt(i);
+ 		             Row row = null;
+ 		             int lastRowNum = sheet.getLastRowNum();
+ 		
+ 		             for (int y = 0; y < lastRowNum; y++) {
+ 			                row = sheet.getRow(y);
+ 			                if (null != row) {
+ 				                    //获取每一列值
+ 				                    for (int j = 0; j < row.getLastCellNum(); j++) {
+ 					                        Cell cell = row.getCell(j);
+ 					                        if(cell==null) {
+ 					                        	continue;
+ 					                        }
+ 					                        cell.setCellType(Cell.CELL_TYPE_STRING);
+ 					                        String value = cell.getStringCellValue();
+ 					                       
+ 					                        System.out.print(value + " | ");
+ 				                    }
+ 				                    //System.out.println(row);
+ 				                    System.out.println();
+ 			                }
+ 		            }
+         }
+    	
+    	
+    	
+    	
+    }
     
+    
+    public static void demo2(){
+	    	
+	    	String uuid = UUID.randomUUID().toString();
+	    	System.out.println("uuid="+uuid+"; length="+uuid.length());
+    	
+    }
     
     
     
     
     
   //此为main方法仅用作测试，可忽略，
-    public static void main(String[] args) throws IOException, InvalidFormatException {
-        File file = new File("D:\\data\\数据\\数据.xls");
-        FileInputStream fis = new FileInputStream(file);
-
-        //将输出的流对象引入到解析excel文件的对象
-        HSSFWorkbook wb = new HSSFWorkbook(fis);
-//        XSSFWorkbook wb = new XSSFWorkbook(fis);
-//        Workbook wb = WorkbookFactory.create(fis);
-//        Workbook wb = ExcelUtils.getWorkBookFromMultipartFile();
-
-        for (int i = 0; i < wb.getNumberOfSheets(); i++) {
-            HSSFSheet sheet = wb.getSheetAt(i);
-//            XSSFSheet sheet = wb.getSheetAt(i);
-//            Sheet sheet = wb.getSheetAt(i);
-            Row row = null;
-            int lastRowNum = sheet.getLastRowNum();
-
-            for (int y = 0; y < lastRowNum; y++) {
-                row = sheet.getRow(y);
-                if (null != row) {
-                    //获取每一列值
-                    for (int j = 0; j < row.getLastCellNum(); j++) {
-                        Cell cell = row.getCell(j);
-                        String value = cell.getStringCellValue();
-                        System.out.println(value + "|");
-                    }
-                    System.out.println(row);
-                }
-            }
-        }
+    public static void main(String[] args) throws Exception  {
+    	  
+    	doExcel();
+    	
+       
     }
 }
