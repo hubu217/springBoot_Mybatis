@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,16 +15,20 @@ import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.exception.MyException;
 
 /**
  * @author fy
@@ -192,7 +197,11 @@ public class ExcelUtils {
     
     public static void  doExcel() throws IOException, InvalidFormatException{
     	
-    	 File file = new File("D:/哈尔滨统计-test.xlsx");
+    	 File file = new File("E:/哈尔滨统计-test.xlsx");
+    	 boolean flag = file.exists();
+    	 if(!flag) {
+    		  throw new MyException("100005","文件不存在！");
+    	 }
          FileInputStream fis = new FileInputStream(file);
 
          //将输出的流对象引入到解析excel文件的对象
@@ -201,37 +210,84 @@ public class ExcelUtils {
 //         Workbook wb = WorkbookFactory.create(fis);
 //         Workbook wb = ExcelUtils.getWorkBookFromMultipartFile();
 
-         for (int i = 0; i < wb.getNumberOfSheets(); i++) {
+         int sheetsNum = wb.getNumberOfSheets(); //excel的sheet大小
+         int rowNum = 0; //excel的总行数
+         int columnNum= 0 ; //excel的总列数
+         for (int i = 0; i < sheetsNum; i++) {
+        	         System.out.println("页数: 第"+i+"页! ===============================================================");
 // 		             HSSFSheet sheet = wb.getSheetAt(i);
- 		           XSSFSheet sheet = wb.getSheetAt(i);
+ 		              XSSFSheet sheet = wb.getSheetAt(i);
  		//            Sheet sheet = wb.getSheetAt(i);
- 		             Row row = null;
- 		             int lastRowNum = sheet.getLastRowNum();
- 		
- 		             for (int y = 0; y < lastRowNum; y++) {
- 			                row = sheet.getRow(y);
- 			                if (null != row) {
- 				                    //获取每一列值
- 				                    for (int j = 0; j < row.getLastCellNum(); j++) {
- 					                        Cell cell = row.getCell(j);
- 					                        if(cell==null) {
- 					                        	continue;
- 					                        }
- 					                        cell.setCellType(Cell.CELL_TYPE_STRING);
- 					                        String value = cell.getStringCellValue();
- 					                       
- 					                        System.out.print(value + " | ");
- 				                    }
- 				                    //System.out.println(row);
- 				                    System.out.println();
+ 		              
+ 		              rowNum = sheet.getLastRowNum()+1;	
+ 		              for (int y = 0; y < rowNum; y++) {
+	 			                Row  row = sheet.getRow(y);	//行
+	 			                if (null != row) {
+		 				                    //获取每一列值
+		 			                	   columnNum= row.getLastCellNum(); 
+		 				                    for (int j = 0; j < columnNum; j++) {
+			 					                        Cell cell = row.getCell(j); //列/单元格
+			 					                        if(cell==null) {
+			 					                        	continue;
+			 					                        }
+			 					                        //获取单元格/列 的值
+			 					                        String value = getValue(cell);
+			 					                        System.out.print(value + " | ");
+		 				                    }
+		 				                    System.out.println();
  			                }
  		            }
+ 		            System.out.println("sheetsNum总页数="+sheetsNum+";  rowNum总行数="+rowNum+";  columnNum总列数="+columnNum);
+ 		            System.out.println();
+ 		            
          }
     	
     	
-    	
-    	
     }
+    
+    
+	private static String getValue(Cell hssfCell) {
+	
+			if (hssfCell == null) {
+				return null;
+			}
+			if (hssfCell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
+				// 返回布尔类型的值
+				return String.valueOf(hssfCell.getBooleanCellValue());
+			} else if (hssfCell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+				// 返回数字类型的值
+							if (HSSFDateUtil.isCellDateFormatted(hssfCell)) {
+									SimpleDateFormat sdf = null;
+									if (hssfCell.getCellStyle().getDataFormat() == HSSFDataFormat.getBuiltinFormat("h:mm")) {
+										sdf = new SimpleDateFormat("HH:mm");
+									} else {// 日期
+										sdf = new SimpleDateFormat("yyyy/MM/dd");
+									}
+									Date date = hssfCell.getDateCellValue();
+									return sdf.format(date);
+							} else if (hssfCell.getCellStyle().getDataFormat() == 58) {
+									// 处理自定义日期格式：m月d日(通过判断单元格的格式id解决，id的值是58)
+									SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+									double value = hssfCell.getNumericCellValue();
+									Date date = org.apache.poi.ss.usermodel.DateUtil.getJavaDate(value);
+									return sdf.format(date);
+							} else {
+									double value = hssfCell.getNumericCellValue();
+									CellStyle style = hssfCell.getCellStyle();
+									DecimalFormat format = new DecimalFormat();
+									String temp = style.getDataFormatString();
+									// 单元格设置成常规
+									if (temp.equals("General")) {
+										format.applyPattern("#");
+									}
+									return format.format(value);
+							}
+			} else {
+					// 返回字符串类型的值
+					hssfCell.setCellType(hssfCell.CELL_TYPE_STRING);
+					return hssfCell.toString();
+			}
+	}
     
     
     public static void demo2(){
