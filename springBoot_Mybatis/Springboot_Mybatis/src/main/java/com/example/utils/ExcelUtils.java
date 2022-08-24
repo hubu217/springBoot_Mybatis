@@ -33,9 +33,9 @@ import com.example.exception.MyException;
 import ch.qos.logback.classic.Logger;
 
 /**
- * @author fy
+ * @author hb
  * @ClassName: ExcelUtils
- * @Description: 解析excel表
+ * @Description: 解析excel表 [标准格式]
  * @Description: 上传/下载 文件
  * @date 2022/4/8 15:25
  */
