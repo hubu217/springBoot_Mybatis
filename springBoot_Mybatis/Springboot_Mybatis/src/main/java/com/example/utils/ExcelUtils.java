@@ -30,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.exception.MyException;
 
+import ch.qos.logback.classic.Logger;
+
 /**
  * @author fy
  * @ClassName: ExcelUtils
@@ -197,7 +199,7 @@ public class ExcelUtils {
     
     public static void  doExcel() throws IOException, InvalidFormatException{
     	
-    	 File file = new File("E:/哈尔滨统计-test.xlsx");
+    	 File file = new File("E:/哈尔滨统计-test3.xlsx");
     	 boolean flag = file.exists();
     	 if(!flag) {
     		  throw new MyException("100005","文件不存在！");
@@ -302,9 +304,22 @@ public class ExcelUtils {
     
     
   //此为main方法仅用作测试，可忽略，
-    public static void main(String[] args) throws Exception  {
+    public static void main(String[] args)   {
     	  
-    	doExcel();
+    	try {
+    		
+    		
+			      doExcel();
+		} catch (InvalidFormatException | IOException e) {
+			e.printStackTrace();
+		} catch (MyException e) {
+			e.printStackTrace();
+			String code = e.getCode();
+			String msg = e.getMsg();
+			System.out.println("code="+code+"; msg="+msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     	
        
     }
