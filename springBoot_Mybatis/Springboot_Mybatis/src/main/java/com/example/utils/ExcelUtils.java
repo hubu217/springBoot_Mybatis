@@ -27,15 +27,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.example.exception.MyException;
-
-import ch.qos.logback.classic.Logger;
 
 /**
  * @author hb
  * @ClassName: ExcelUtils
- * @Description: 解析excel表 [标准格式]
+ * @Description: 解析excel文件 [标准格式]
  * @Description: 上传/下载 文件
  * @date 2022/4/8 15:25
  */
