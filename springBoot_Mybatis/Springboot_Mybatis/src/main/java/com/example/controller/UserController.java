@@ -1,11 +1,19 @@
 package com.example.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.poi.poifs.filesystem.DirectoryEntry;
+import org.apache.poi.poifs.filesystem.DocumentEntry;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -98,6 +106,34 @@ public class UserController {
     	
         return JSON.toJSONString("getUser2");
     }
+    
+    
+    
+    @RequestMapping("/exportWord")
+    public  void exportWord(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    try {
+	    	
+	        String content = "F:\123.html";
+	        byte b[] = content.getBytes("utf-8");  //这里是必须要设置编码的，不然导出中文就会乱码。
+	        ByteArrayInputStream bais = new ByteArrayInputStream(b);//将字节数组包装到流中
+	            //生成word
+	        POIFSFileSystem poifs = new POIFSFileSystem();
+	        DirectoryEntry directory = poifs.getRoot();
+	        DocumentEntry documentEntry = directory.createDocument("F://exportWord.docx", bais);
+	        //输出文件
+	        response.setCharacterEncoding("utf-8");
+	        //设置word格式
+	        response.setContentType("application/msword");
+	        response.setHeader("Content-disposition", "attachment;filename=exportWord.docx");
+	        OutputStream ostream = response.getOutputStream();
+	        poifs.writeFilesystem(ostream);
+	        bais.close();
+	        ostream.close();
+	    }catch(Exception e){
+	        //异常处理
+	        log.error("文件导出错误", e);
+	    }
+	}
     
     
     
