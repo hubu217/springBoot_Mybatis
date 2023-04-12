@@ -16,12 +16,13 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 public class DemoApplication {
 
 
+    public static void main(String[] args) {
+
+        System.out.println("kkkkkkkkk");
 
 
-
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+        SpringApplication.run(DemoApplication.class, args);
+    }
 	
 	
 	/*@Bean

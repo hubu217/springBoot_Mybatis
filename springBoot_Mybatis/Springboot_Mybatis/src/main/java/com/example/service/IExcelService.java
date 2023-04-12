@@ -9,17 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
  */
 
 public interface IExcelService {
-	
-	
-	
-	
-	public String processModel(MultipartFile modelFile) throws Exception;
-	
-    
-    
-    
-    
-    
-    
-    
+
+
+    public String processModel(MultipartFile modelFile) throws Exception;
+
+
 }

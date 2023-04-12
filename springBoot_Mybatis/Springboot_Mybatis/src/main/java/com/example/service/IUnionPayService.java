@@ -9,13 +9,9 @@ import java.util.Map;
  */
 
 public interface IUnionPayService {
-	
-    
-    
-    
-    
-	public Map<String,String> getUnionPayCode(Map<String,String> map);
-    
-    
-    
+
+
+    public Map<String, String> getUnionPayCode(Map<String, String> map);
+
+
 }

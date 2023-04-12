@@ -11,22 +11,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 
 
-
 public class User {
-	
-	
-	
-	@JSONField(serialize = false)
+
+
+    @JSONField(serialize = false)
     private Integer id;
-    
-    
-    
+
+
     @JsonIgnore
     private String userName;
-    
+
     @JSONField(serialize = false)
     private String passWord;
-    
+
     @JsonIgnore
     private String realName;
 

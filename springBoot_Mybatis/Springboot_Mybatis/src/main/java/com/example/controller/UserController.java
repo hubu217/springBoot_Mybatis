@@ -1,15 +1,11 @@
 package com.example.controller;
 
-import java.io.ByteArrayInputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.example.entity.User;
+import com.example.service.IUserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.poi.poifs.filesystem.DirectoryEntry;
 import org.apache.poi.poifs.filesystem.DocumentEntry;
@@ -20,18 +16,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
-import com.example.entity.Tuser;
-import com.example.entity.User;
-import com.example.service.IUserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
-import lombok.extern.slf4j.Slf4j;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @Author:0xOO
@@ -42,103 +32,93 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/testBoot")
 public class UserController {
-	
-	
-	
-	
+
 
     @Autowired
     private IUserService userService;
-    
-    int count=20; 
-    
-    
-    
-    
-    
+
+    int count = 20;
+
 
     @RequestMapping("getUser/{id}")
-    public String GetUser(@PathVariable int id){
-    	
-    	User user2 = userService.Sel(id);
-    	
-    	User user = new User();
-    	user.setId(1);
-    	user.setPassWord("password");
-    	user.setRealName("realName");
-    	user.setUserName("userName");
-    	
+    public String GetUser(@PathVariable int id) {
+
+        User user2 = userService.Sel(id);
+
+        User user = new User();
+        user.setId(1);
+        user.setPassWord("password");
+        user.setRealName("realName");
+        user.setUserName("userName");
+
+        Collections.synchronizedList(new ArrayList<>());
+
+
         return JSON.toJSONString(user);
     }
-    
-    
-    
-    
+
+
     @RequestMapping("sellTicket")
-    public synchronized String sellTicket( ){
-    	
-    	
-        
-    	String msg ="";
-    	List<Integer> lst = new ArrayList<Integer>();
-    	if(count>0) {
-    		  msg = "票号="+count+"; 已卖出";
-    		  lst.add(count);
-    		  System.out.println(msg);
-    		  count--;
-    		  System.out.println("=================还剩下数量="+count);
-    	}
-    	
-    	
-    	//System.out.println("总共卖出了="+lst.size());
-    	
-		return msg;
-    	
+    public synchronized String sellTicket() {
+
+
+        String msg = "";
+        List<Integer> lst = new ArrayList<Integer>();
+        if (count > 0) {
+            msg = "票号=" + count + "; 已卖出";
+            lst.add(count);
+            System.out.println(msg);
+            count--;
+            System.out.println("=================还剩下数量=" + count);
+        }
+
+
+        //System.out.println("总共卖出了="+lst.size());
+
+        return msg;
+
     }
-    
-    
-    
-    
+
+
     @RequestMapping("getUser2")
-    public String getUser2(@RequestHeader("userId") int userId){
-    	
-    	
-    	
+    public String getUser2(@RequestHeader("userId") int userId) {
+
+
         return JSON.toJSONString("getUser2");
     }
-    
-    
-    
+
+
     @RequestMapping("/exportWord")
-    public  void exportWord(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    try {
-	    	
-	        String content = "F:\123.html";
-	        byte b[] = content.getBytes("utf-8");  //这里是必须要设置编码的，不然导出中文就会乱码。
-	        ByteArrayInputStream bais = new ByteArrayInputStream(b);//将字节数组包装到流中
-	            //生成word
-	        POIFSFileSystem poifs = new POIFSFileSystem();
-	        DirectoryEntry directory = poifs.getRoot();
-	        DocumentEntry documentEntry = directory.createDocument("F://exportWord.docx", bais);
-	        //输出文件
-	        response.setCharacterEncoding("utf-8");
-	        //设置word格式
-	        response.setContentType("application/msword");
-	        response.setHeader("Content-disposition", "attachment;filename=exportWord.docx");
-	        OutputStream ostream = response.getOutputStream();
-	        poifs.writeFilesystem(ostream);
-	        bais.close();
-	        ostream.close();
-	    }catch(Exception e){
-	        //异常处理
-	        log.error("文件导出错误", e);
-	    }
-	}
-    
-    
-    
-    
+    public void exportWord(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        try {
+
+            String content = "F:\123.html";
+            byte b[] = content.getBytes("utf-8");  //这里是必须要设置编码的，不然导出中文就会乱码。
+            ByteArrayInputStream bais = new ByteArrayInputStream(b);//将字节数组包装到流中
+            //生成word
+            POIFSFileSystem poifs = new POIFSFileSystem();
+            DirectoryEntry directory = poifs.getRoot();
+            DocumentEntry documentEntry = directory.createDocument("F://exportWord.docx", bais);
+            //输出文件
+            response.setCharacterEncoding("utf-8");
+            //设置word格式
+            response.setContentType("application/msword");
+            response.setHeader("Content-disposition", "attachment;filename=exportWord.docx");
+            OutputStream ostream = response.getOutputStream();
+            poifs.writeFilesystem(ostream);
+            bais.close();
+            ostream.close();
+        } catch (Exception e) {
+            //异常处理
+            log.error("文件导出错误", e);
+        }
+    }
+
+
     public static void main(String[] args) throws JsonProcessingException {
+
+
+        System.out.println("kkkkkkkk");
 		
 		/*User user = new User();
 		user.setId(1);
@@ -180,34 +160,24 @@ public class UserController {
 		jsonObj.put("tcreattime", tuser.getCreatedatetime());
 		jsonObj.put("troles", tuser.getTroles());
 		System.out.println("拼接后 jsonObj="+JSON.toJSONString(jsonObj));*/
-		
-		
-		
-		JSONObject jsonObj2 = new JSONObject();
-		jsonObj2.put("key1", "val1");
-		jsonObj2.put("key2", "val2");
-		jsonObj2.put("key3", "val3");
-		jsonObj2.put("key4", "val4");
-		
-		
-		System.out.println("==== jsonObj2="+JSON.toJSONString(jsonObj2));
-		
-		
-		
-		
-		jsonObj2.remove("key2");
-		jsonObj2.remove("key4");
-		System.out.println("==== jsonObj2 移除后="+JSON.toJSONString(jsonObj2));
 
-		
-		
-		
-		
-		
-		
-		
-		
-	}
-    
-    
+
+        JSONObject jsonObj2 = new JSONObject();
+        jsonObj2.put("key1", "val1");
+        jsonObj2.put("key2", "val2");
+        jsonObj2.put("key3", "val3");
+        jsonObj2.put("key4", "val4");
+
+
+        System.out.println("==== jsonObj2=" + JSON.toJSONString(jsonObj2));
+
+
+        jsonObj2.remove("key2");
+        jsonObj2.remove("key4");
+        System.out.println("==== jsonObj2 移除后=" + JSON.toJSONString(jsonObj2));
+
+
+    }
+
+
 }

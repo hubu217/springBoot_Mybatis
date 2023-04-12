@@ -14,24 +14,17 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserServiceImpl implements IUserService{
-	
-	
-	
-	
-	
+public class UserServiceImpl implements IUserService {
+
+
     @Autowired
     UserMapper userMapper;
-    
-    
-    
-    
-    
+
+
     @Override
-    public User Sel(int id){
+    public User Sel(int id) {
         return userMapper.Sel(id);
     }
-    
-    
-    
+
+
 }

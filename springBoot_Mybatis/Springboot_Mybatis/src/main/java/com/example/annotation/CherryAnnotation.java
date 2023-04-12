@@ -10,13 +10,13 @@ import java.lang.annotation.Target;
 @Target(value = {ElementType.METHOD})
 @Documented
 public @interface CherryAnnotation {
-	
-	
-	
-	
+
+
     String name();
+
     int age() default 18;
+
     int[] score();
-    
-    
+
+
 }

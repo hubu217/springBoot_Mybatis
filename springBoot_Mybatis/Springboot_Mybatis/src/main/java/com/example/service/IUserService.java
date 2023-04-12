@@ -9,13 +9,9 @@ import com.example.entity.User;
  */
 
 public interface IUserService {
-	
-    
-    
-    
-    
-    	public User Sel(int id);
-    
-    
-    
+
+
+    public User Sel(int id);
+
+
 }

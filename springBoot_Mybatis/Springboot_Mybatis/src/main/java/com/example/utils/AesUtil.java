@@ -20,19 +20,13 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class AesUtil {
-	
-	
-	
-	
-	
+
 
     private static final String KEY_AES = "AES";
 
     private static final int KEY_LENGTH = 16;
 
-    
-    
-    
+
     /**
      * 加密
      */
@@ -67,7 +61,7 @@ public class AesUtil {
             return new String(original);
         } catch (Exception e) {
             log.error("AES解密出错!", e);
-            
+
         }
         return null;
     }
@@ -103,29 +97,26 @@ public class AesUtil {
         return hs.toString().toUpperCase();
     }
 
-    
-    
-    
-    
-	 public static void main(String[] args) {
-	 	
-	 	JSONObject jsonObj = new JSONObject();
-	 	jsonObj.put("name", "张三");
-	 	jsonObj.put("sex", "男");
-	 	jsonObj.put("age", 11);
-	 	Map<String, String> map = new HashMap<String, String>();
-	 	map.put("key1", "val1");
-	 	map.put("key2", "val2");
-	 	jsonObj.put("map", map);
-	 	
-	    // String content = "http://s3zz.ad.weibo.com/license/1231xxqrq3rr44q.jpg#13121121231231";
-	     String content = JSON.toJSONString(jsonObj);
-	     log.info("原内容 = {}", content);
-	     String encrypt = AesUtil.encrypt(content, "aWXoyC4UNb1frkey");
-	     log.info("加密后 = {}", encrypt);
-	     String decrypt = AesUtil.decrypt(encrypt, "aWXoyC4UNb1frkey");
-	     log.info("解密后 = {}", decrypt);
-	 }
+
+    public static void main(String[] args) {
+
+        JSONObject jsonObj = new JSONObject();
+        jsonObj.put("name", "张三");
+        jsonObj.put("sex", "男");
+        jsonObj.put("age", 11);
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("key1", "val1");
+        map.put("key2", "val2");
+        jsonObj.put("map", map);
+
+        // String content = "http://s3zz.ad.weibo.com/license/1231xxqrq3rr44q.jpg#13121121231231";
+        String content = JSON.toJSONString(jsonObj);
+        log.info("原内容 = {}", content);
+        String encrypt = AesUtil.encrypt(content, "aWXoyC4UNb1frkey");
+        log.info("加密后 = {}", encrypt);
+        String decrypt = AesUtil.decrypt(encrypt, "aWXoyC4UNb1frkey");
+        log.info("解密后 = {}", decrypt);
+    }
 
 }
 
