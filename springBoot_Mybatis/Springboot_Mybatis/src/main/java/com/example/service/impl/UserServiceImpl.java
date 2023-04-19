@@ -20,7 +20,6 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     UserMapper userMapper;
 
-
     @Override
     public User Sel(int id) {
         return userMapper.Sel(id);

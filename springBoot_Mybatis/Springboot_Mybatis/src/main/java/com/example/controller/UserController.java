@@ -39,7 +39,6 @@ public class UserController {
 
     int count = 20;
 
-
     @RequestMapping("getUser/{id}")
     public String GetUser(@PathVariable int id) {
 
@@ -66,16 +65,17 @@ public class UserController {
         List<Integer> lst = new ArrayList<Integer>();
         if (count > 0) {
             msg = "票号=" + count + "; 已卖出";
+
             lst.add(count);
             System.out.println(msg);
             count--;
             System.out.println("=================还剩下数量=" + count);
         }
 
-
-        //System.out.println("总共卖出了="+lst.size());
+//        System.out.println("总共卖出了="+lst.size());
 
         return msg;
+//
 
     }
 
@@ -110,7 +110,6 @@ public class UserController {
             ostream.close();
         } catch (Exception e) {
             //异常处理
-            log.error("文件导出错误", e);
         }
     }
 
@@ -122,7 +121,7 @@ public class UserController {
 		
 		/*User user = new User();
 		user.setId(1);
-		user.setPassWord("password");
+		user.setPassWord("Password");
 		user.setRealName("realName");
 		user.setUserName("userName");*/
     	

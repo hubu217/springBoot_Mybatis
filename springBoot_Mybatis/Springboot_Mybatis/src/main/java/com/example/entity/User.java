@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 
 
-public class User {
+public class User extends Object{
 
 
     @JSONField(serialize = false)

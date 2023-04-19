@@ -117,6 +117,12 @@
         </dependency> -->
 
 
+        <dependency>
+            <groupId>com.lispcast</groupId>
+            <artifactId>org.apache.commons.lang</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
