@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/springBoot_Mybatis-artifactId.iml" filepath="$PROJECT_DIR$/springBoot_Mybatis-artifactId.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../myRepository1/sypro/sypro/sypro.iml" filepath="$PROJECT_DIR$/../../../myRepository1/sypro/sypro/sypro.iml" />
     </modules>
   </component>
 </project>

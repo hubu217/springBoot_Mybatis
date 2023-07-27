@@ -68,8 +68,8 @@ public class UserController {
 
             lst.add(count);
             System.out.println(msg);
-            count--;
             System.out.println("=================还剩下数量=" + count);
+            count--;
         }
 
 //        System.out.println("总共卖出了="+lst.size());

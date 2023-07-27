@@ -42,7 +42,19 @@ public class ExcelUtils2 {
         XSSFWorkbook xssfWorkbook = null; //工作簿
         try {
             File file = new File("E:/跨行跨列3.xlsx");
+
+
+
+
+
+
             inputStream = new FileInputStream(file);
+
+
+
+
+
+
             //定义工作簿
             xssfWorkbook = new XSSFWorkbook(inputStream);
             //获取第一个sheet;[写死只有一个sheet]

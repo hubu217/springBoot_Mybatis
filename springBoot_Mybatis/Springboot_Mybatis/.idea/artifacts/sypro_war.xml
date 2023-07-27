@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="sypro:war">
+    <output-path>$PROJECT_DIR$/../../../myRepository1/sypro/sypro/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>sypro</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="sypro.war">
+      <element id="artifact" artifact-name="sypro:war exploded" />
+    </root>
+  </artifact>
+</component>
