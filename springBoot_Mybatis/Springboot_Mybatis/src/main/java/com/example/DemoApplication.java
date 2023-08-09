@@ -23,8 +23,10 @@ public class DemoApplication {
         long xmxMemory = Runtime.getRuntime().maxMemory() / 1024 / 1024;
         System.out.println("-Xms:" + xmsMemory + "M");
         System.out.println("-Xmx:" + xmxMemory + "M");
-//        System.out.println("系统内存大小为:" + xmsMemory * 64.0 / 1024 + "G");
-//        System.out.println("系统内存大小为:" + xmxMemory * 4.0 / 1024 + "G");
+        System.out.println("系统内存大小为:" + xmsMemory * 64.0 / 1024 + "G");
+        System.out.println("系统内存大小为:" + xmxMemory * 4.0 / 1024 + "G");
+
+
 //        在使用 -Xms500m -Xmx500m -XX:+PrintGCDetails需要把等待时间代码注释掉
 //        try {
 //            Thread.sleep(1000000);

@@ -22,6 +22,10 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User Sel(int id) {
+
+
+        Object obj = new Object();
+       
         return userMapper.Sel(id);
     }
 

@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.entity.User;
@@ -50,10 +51,11 @@ public class UserController {
         user.setRealName("realName");
         user.setUserName("userName");
 
-        Collections.synchronizedList(new ArrayList<>());
+        String targetStr =  JSON.toJSONString(user2);
+        log.info("targetStr="+targetStr);
+        System.out.println("targetStr="+targetStr);
 
-
-        return JSON.toJSONString(user);
+        return targetStr;
     }
 
 

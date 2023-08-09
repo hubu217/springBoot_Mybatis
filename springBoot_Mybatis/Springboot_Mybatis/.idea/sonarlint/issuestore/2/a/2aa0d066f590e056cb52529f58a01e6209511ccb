@@ -1,0 +1,11 @@
+
+\
+java:S1075,"ARefactor your code to get this URI from a customizable parameter.(äÿÉÔùÿÿÿÿ
+S	java:S106X"9Replace this use of System.out or System.err by a logger.(å×ñûÿÿÿÿ
+S	java:S106["9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+E
+java:S2093+"*Change this "try" to a try-with-resources.(¡»¢üùÿÿÿÿ
+o
+java:S2293{"YReplace the type specification in this constructor call with the diamond operator ("<>").(ŸÏõ
+\
+java:S1192`"FDefine a constant instead of duplicating this literal "error" 3 times.(äËÑõ

@@ -1,0 +1,11 @@
+
+W
+java:S1854,"ARemove this useless assignment to local variable "documentEntry".(”õ×›
+\
+java:S1075"ARefactor your code to get this URI from a customizable parameter.(à‰æ‚ÿÿÿÿÿ
+@
+java:S1197("*Move the array designators [] to the type.(€øø‰
+H
+java:S1481,"2Remove this unused "documentEntry" local variable.(”õ×›
+h
+java:S2095*"MUse try-with-resources or close this "POIFSFileSystem" in a "finally" clause.(Ä‘øßÿÿÿÿÿ
