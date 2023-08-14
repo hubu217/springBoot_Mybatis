@@ -1,5 +1,8 @@
 package com.example.controller.Thread.t3;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.poi.util.StringUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +20,7 @@ public class Apple  implements Runnable{
 
 
 
-    public /*synchronized*/ void count2()  {
+    public synchronized void count2()  {
 
         keyList.add("a");
         keyList.add("b");
@@ -26,6 +29,9 @@ public class Apple  implements Runnable{
         System.out.println(Thread.currentThread().getName()+"-[keyList]: "+keyList);
 
         keyList.removeAll(keyList); //java.util.ConcurrentModificationException
+
+
+
 
     }
 

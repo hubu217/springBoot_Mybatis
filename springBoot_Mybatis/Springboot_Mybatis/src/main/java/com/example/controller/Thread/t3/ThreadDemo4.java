@@ -18,7 +18,7 @@ public class ThreadDemo4 {
                 @Override
                 public void run() {
 
-                    pear.count2();
+                    pear.count();
 
                 }
         };
